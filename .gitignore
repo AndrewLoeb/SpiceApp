@@ -261,3 +261,5 @@ __pycache__/
 *.pyc
 /WebApplication1/credentials.json
 /WebApplication1/app_client_secret.json
+/WebApplication2/credentials.json
+/WebApplication2/app_client_secret.json
