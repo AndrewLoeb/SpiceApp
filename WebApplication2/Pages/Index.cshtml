@@ -1,5 +1,5 @@
 ﻿@page
-@using Microsoft.AspNetCore.Components
+@using WebApplication2.Components
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -12,4 +12,3 @@
 
 @(await Html.RenderComponentAsync<SpiceList>(RenderMode.ServerPrerendered))
 
-<script src="_framework/blazor.server.js"></script>

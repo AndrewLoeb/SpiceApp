@@ -1,0 +1,58 @@
+﻿@using WebApplication1.Models
+@using WebApplication1.Services
+@using Microsoft.AspNetCore
+@inject googleSheetsSpiceService SpiceService
+
+
+@{var badgeType1 = "";
+    var badgeType2 = ""; }
+<div class="card-columns">
+    @foreach (var spice in Model.Spices)
+    {
+        <div class="card">
+            <div class="card-body">
+                @switch (spice.Category1)
+                {
+                    case "Herb":
+                        badgeType1 = "badge-success";
+                        break;
+                    case "Savory":
+                        badgeType1 = "badge-info";
+                        break;
+                    case "Warm":
+                        badgeType1 = "badge-warning";
+                        break;
+                    case "Hot":
+                        badgeType1 = "badge-danger";
+                        break;
+                    default:
+                        badgeType1 = "";
+                        break;
+
+                }
+                @switch (spice.Category2)
+                {
+                    case "Ground":
+                        badgeType2 = "badge-light";
+                        break;
+                    case "Pod":
+                        badgeType2 = "badge-dark";
+                        break;
+                    case "Blend":
+                        badgeType2 = "badge-secondary";
+                        break;
+                    default:
+                        badgeType2 = "";
+                        break;
+
+                }
+                <h5 class="card-title">
+                    @spice.Name <span class="badge @badgeType1"> @spice.Category1</span>
+                    <span class="badge @badgeType2"> @spice.Category2</span>
+                </h5>
+                
+            </div>
+
+        </div>
+    }
+</div>
