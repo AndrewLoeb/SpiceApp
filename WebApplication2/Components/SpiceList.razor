@@ -89,6 +89,7 @@
 
         int index = random.Next(pinchList.Count);
         toastService.ShowSuccess("Logged " + pinchList[index] + " of " + spiceName, "Yum!");
+        PrintSpiceName();
     }
 
     int currentRating = 0;
@@ -97,7 +98,6 @@
 
     void PrintSpiceName()
     {
-
         System.Console.WriteLine($"You clicked: {selectedSpice.Name}");
         SpiceService.AddLog(selectedSpice.Name);
     }
