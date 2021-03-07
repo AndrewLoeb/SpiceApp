@@ -1,9 +1,12 @@
 ﻿@page
 @using WebApplication2.Components
 @model IndexModel
+
+
 @{
     ViewData["Title"] = "Home page";
 }
+
 
 <div>
     <h1> Spice Status  </h1>
@@ -11,4 +14,3 @@
 
 
 @(await Html.RenderComponentAsync<SpiceList>(RenderMode.ServerPrerendered))
-

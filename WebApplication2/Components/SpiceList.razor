@@ -3,15 +3,25 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject googleSheetsSpiceService SpiceService
 
+@using Blazored.Toast
+@using Blazored.Toast.Services
+@inject IToastService toastService
+
+
+<BlazoredToasts Timeout="5"
+                ShowProgressBar="true"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-bar-chart" />
 
 @{var badgeType1 = "";
     var badgeType2 = ""; }
 <div class="card-columns">
     @foreach (var spice in SpiceService.Spices_GetList())
     {
-    <div class="card">
-        <div class="card-body">
-            @switch (spice.Category1)
+        <div @onclick="(e => SelectSpice(spice.Name))" class="card">
+            <div class="card-body">
+                @switch (spice.Category1)
                 {
                     case "Herb":
                         badgeType1 = "badge-success";
@@ -30,7 +40,7 @@
                         break;
 
                 }
-            @switch (spice.Category2)
+                @switch (spice.Category2)
                 {
                     case "Ground":
                         badgeType2 = "badge-light";
@@ -46,20 +56,20 @@
                         break;
 
                 }
-            <h5 class="card-title">
-                @spice.Name <span class="badge @badgeType1"> @spice.Category1</span>
-                <span class="badge @badgeType2"> @spice.Category2</span>
-            </h5>
+                <h5 class="card-title">
+                    @spice.Name
+                    <br />
+                    <span class="badge @badgeType1"> @spice.Category1</span>
+                    <span class="badge @badgeType2"> @spice.Category2</span>
+                </h5>
 
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    Last ordered: XX/YYY
+                </small>
+            </div>
         </div>
-        <div class="card-footer">
-            <small class="text-muted">
-                <button @onclick="(e => SelectSpice(spice.Name))" class="btn btn-primary">
-                    Log Spice
-                </button>
-            </small>
-        </div>
-    </div>
     }
 </div>
 
@@ -68,12 +78,17 @@
 {
     SpiceModel selectedSpice;
     string selectedSpiceName;
+    Random random = new Random();
+    List<string> pinchList = new List<string> { "a pinch", "a dash", "a shake", "a bit", "a little bit", "a few sprinkles", "an essesnce", "just the right amount", "a ton" };
 
     void SelectSpice(string spiceName)
     {
         selectedSpiceName = spiceName;
         selectedSpice = SpiceService.Spices_GetList().First(x => x.Name == spiceName);
-        PrintSpiceName();
+
+
+        int index = random.Next(pinchList.Count);
+        toastService.ShowSuccess("Logged " + pinchList[index] + " of " + spiceName, "Yum!");
     }
 
     int currentRating = 0;
